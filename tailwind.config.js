@@ -18,6 +18,3 @@ module.exports = {
    },
    plugins: [],
 };
-// RedHatDisplay_400Regular,
-// RedHatDisplay_500Medium,
-// RedHatDisplay_700Bold,

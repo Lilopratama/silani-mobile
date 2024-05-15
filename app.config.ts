@@ -2,8 +2,8 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
    ...config,
-   slug: "silani",
    name: "Silani",
+   slug: "silani",
    version: process.env.APP_VERSION || "1.0.0",
    orientation: "portrait",
    icon: "./assets/images/icon.png",
