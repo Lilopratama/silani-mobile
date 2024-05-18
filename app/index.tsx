@@ -1,19 +1,18 @@
 import OnBoardingText from "@/components/OnBoardingText";
 import { OnBoarding } from "@/constants/OnBoarding";
-import {
-   AntDesign,
-   Ionicons,
-   MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { ImageBackground, Pressable, Text, View } from "react-native";
 
+// Load image source
 const imageSource = require("@/assets/images/WelcomeBG.jpg");
 
 export default function IndexScreen() {
+   // Router for navigation
    const router = useRouter();
    return (
+      // Image Background
       <ImageBackground
          source={imageSource}
          className="flex-1 justify-end px-[20] py-[40]"

@@ -1,3 +1,4 @@
+import { ReactQueryClientProvider } from "@/libs/ReactQuery";
 import {
    RedHatDisplay_400Regular,
    RedHatDisplay_500Medium,
@@ -11,12 +12,14 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+   // Register Application fonts
    const [fontsLoaded, fontError] = useFonts({
       RedHatDisplay_400Regular,
       RedHatDisplay_500Medium,
       RedHatDisplay_700Bold,
    });
 
+   // Load fonts
    useEffect(() => {
       const loadFonts = async () => {
          if (fontsLoaded) {
@@ -26,21 +29,24 @@ export default function RootLayout() {
       loadFonts();
    }, [fontsLoaded, fontError]);
 
+   // Handle error
    if (!fontsLoaded || fontError) {
       return null;
    }
 
    return (
-      <GestureHandlerRootView>
-         <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-            <Stack.Screen name="sign-up" options={{ headerShown: true }} />
-            <Stack.Screen
-               name="onboarding-second"
-               options={{ headerShown: false }}
-            />
-         </Stack>
-      </GestureHandlerRootView>
+      <ReactQueryClientProvider>
+         <GestureHandlerRootView>
+            <Stack>
+               <Stack.Screen name="index" options={{ headerShown: false }} />
+               <Stack.Screen
+                  name="onboarding-second"
+                  options={{ headerShown: false }}
+               />
+               <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+               <Stack.Screen name="sign-up" options={{ headerShown: true }} />
+            </Stack>
+         </GestureHandlerRootView>
+      </ReactQueryClientProvider>
    );
 }

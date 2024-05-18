@@ -1,6 +1,6 @@
 import OnBoardingText from "@/components/OnBoardingText";
-import { OnBoarding, SecondOnBoarding } from "@/constants/OnBoarding";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { SecondOnBoarding } from "@/constants/OnBoarding";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { ImageBackground, Pressable, Text, View } from "react-native";
