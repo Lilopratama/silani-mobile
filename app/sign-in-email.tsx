@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
+import React from "react";
 import {
    ImageBackground,
    Pressable,
@@ -8,46 +8,18 @@ import {
    View,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "expo-router";
-import DateTimePicker, {
-   DateTimePickerAndroid,
-   DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
-
+import { Link, useRouter } from "expo-router";
 const imageSource = require("@/assets/images/auth-image.jpg");
-
-const welcome = "Hai 👋\nMari bergabung";
-
-const SignUp = () => {
+const SignInOptions = () => {
    const {
       control,
       handleSubmit,
       formState: { errors },
    } = useForm();
 
-   const [date, setDate] = useState<Date | undefined>(new Date());
-
-   const onChange = (
-      event: DateTimePickerEvent,
-      selectedDate: Date | undefined
-   ) => {
-      const currentDate = selectedDate;
-      setDate(currentDate);
-   };
-
-   // const [openChooserDate, setOpenChooserDate] = React.useState()
-
-   const showChooserDate = (currentMode: "date" | "time") => {
-      DateTimePickerAndroid.open({
-         value: date!,
-         onChange,
-         mode: currentMode,
-         is24Hour: true,
-      });
-   };
-
-   const showDatepicker = () => {
-      showChooserDate("date");
+   const router = useRouter();
+   const handleSignIn = () => {
+      router.push("/(root)");
    };
 
    return (
@@ -63,34 +35,18 @@ const SignUp = () => {
                   style={{ fontSize: 32 }}
                   className="text-white font-RedHatMedium tracking-widest"
                >
-                  {welcome}
+                  Selamat datang kembali !
                </Text>
 
                <Text
                   style={{ fontSize: 16 }}
                   className="text-white font-RedHatRegular max-w-[250]"
                >
-                  Daftarkan Diri Anda Sekarang dan Rasakan Kemudahan Mengelola
-                  Ladang
+                  Masuk dengan email dan password
                </Text>
             </View>
 
             <View className="items-center">
-               <Controller
-                  control={control}
-                  name="nama"
-                  render={() => (
-                     <View className="gap-y-1.5">
-                        <Text className="text-white font-RedHatRegular">
-                           Nama
-                        </Text>
-                        <TextInput
-                           className="min-w-[320] h-[51] bg-white rounded-xl mb-4 px-4"
-                           placeholder="John Doe"
-                        />
-                     </View>
-                  )}
-               />
                <Controller
                   control={control}
                   name="email"
@@ -103,28 +59,6 @@ const SignUp = () => {
                            className="min-w-[320] h-[51] bg-white rounded-xl mb-4 px-4"
                            placeholder="johnDoe@example.com"
                         />
-                     </View>
-                  )}
-               />
-               <Controller
-                  control={control}
-                  name="dob"
-                  render={() => (
-                     <View className="gap-y-1.5">
-                        <Text className="text-white font-RedHatRegular">
-                           Tanggal Lahir
-                        </Text>
-                        {/* <TextInput
-                           className="min-w-[320] h-[51] bg-white rounded-xl mb-4 px-4"
-                           placeholder="13-07-2000"
-                        /> */}
-
-                        <Pressable
-                           onPress={showDatepicker}
-                           className="w-[320] h-[51] border rounded-xl px-4 bg-white mb-4 justify-center"
-                        >
-                           <Text>Choose date | {date?.toDateString()}</Text>
-                        </Pressable>
                      </View>
                   )}
                />
@@ -151,22 +85,24 @@ const SignUp = () => {
                      </View>
                   )}
                />
-               <Pressable className="w-[320] h-[51] bg-dark/70 rounded-full items-center justify-center mb-1">
-                  <Text className="font-RedHatRegular text-white">
-                     Daftar Sekarang
-                  </Text>
+
+               <Pressable
+                  onPress={handleSignIn}
+                  className="w-[320] h-[51] bg-dark/70 rounded-full items-center justify-center mb-1"
+               >
+                  <Text className="font-RedHatRegular text-white">Masuk</Text>
                </Pressable>
                <Text
                   style={{ fontSize: 12 }}
                   className="text-white font-RedHatRegular"
                >
-                  Sudah terdaftar ?{" "}
+                  Belum punya akun ?{" "}
                   <Link
                      style={{ fontSize: 12 }}
-                     href={"/sign-in-options"}
+                     href={"/sign-up"}
                      className="text-primary font-RedHatRegular"
                   >
-                     Masuk sekarang
+                     Daftar sekarang
                   </Link>
                </Text>
             </View>
@@ -175,4 +111,4 @@ const SignUp = () => {
    );
 };
 
-export default SignUp;
+export default SignInOptions;

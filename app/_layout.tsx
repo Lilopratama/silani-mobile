@@ -11,7 +11,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function AuthLayout() {
    // Register Application fonts
    const [fontsLoaded, fontError] = useFonts({
       RedHatDisplay_400Regular,
@@ -43,8 +43,16 @@ export default function RootLayout() {
                   name="onboarding-second"
                   options={{ headerShown: false }}
                />
-               <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-               <Stack.Screen name="sign-up" options={{ headerShown: true }} />
+               <Stack.Screen
+                  name="sign-in-options"
+                  options={{ headerShown: false }}
+               />
+               <Stack.Screen
+                  name="sign-in-email"
+                  options={{ headerShown: false }}
+               />
+               <Stack.Screen name="sign-up" options={{ headerShown: false }} />
+               <Stack.Screen name="(root)" options={{ headerShown: false }} />
             </Stack>
          </GestureHandlerRootView>
       </ReactQueryClientProvider>

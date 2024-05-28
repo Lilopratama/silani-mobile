@@ -32,7 +32,7 @@ export default function OnBoardingSecond() {
 
          <View className="gap-y-4 flex-1 justify-end">
             <Pressable
-               onPress={() => router.push("/sign-in")}
+               onPress={() => router.push("/sign-in-options")}
                className="bg-black/60 w-[216] h-[49] rounded-full flex-row items-center justify-center px-2.5 ml-auto mr-auto "
             >
                <View className="w-[40] h-[40] rounded-full bg-primary justify-center items-center absolute left-2">
