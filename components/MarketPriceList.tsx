@@ -1,13 +1,44 @@
+import { PROVINCE } from "@/constants/MarketPriceFilter";
 import { cn } from "@/libs/utils";
+import { BPNMarketPricePerProvince } from "@/types/bpn";
 import { Ionicons } from "@expo/vector-icons";
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, RefreshControl, Text, View } from "react-native";
+import {
+   formatCurrency,
+   getSupportedCurrencies,
+} from "react-native-format-currency";
 
-const MarketPriceList = () => {
+type MarketPriceListProps = {
+   data: BPNMarketPricePerProvince;
+};
+
+const MarketPriceList = (props: MarketPriceListProps) => {
+   const [refreshing, setRefreshing] = React.useState(false);
+
+   const queryClient = useQueryClient();
+
+   const onRefresh = React.useCallback(async () => {
+      setRefreshing(true);
+      await queryClient.invalidateQueries({
+         queryKey: ["market-price"],
+      });
+      setRefreshing(false);
+   }, []);
+
+   const data = props.data.data.map((item, idx) => ({
+      ...item,
+      avatarUrl: PROVINCE[idx]["link-asset"],
+   }));
+
    return (
       <View className="">
          <FlatList
-            data={MarketPriceDummy}
+            data={data}
+            refreshControl={
+               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             contentContainerStyle={{
                paddingBottom: 20,
                paddingTop: 10,
@@ -23,21 +54,33 @@ const MarketPriceList = () => {
 
 export default MarketPriceList;
 
-type MarketPriceItemProps = {
-   province: string;
-   disparity: number;
-   price: number;
+type MarketPriceItemProps = BPNMarketPricePerProvince["data"][number] & {
+   avatarUrl: string;
 };
 
 export const MarketPriceItem = (props: MarketPriceItemProps) => {
+   const [idr] =
+      props.geomean === "-"
+         ? "-"
+         : formatCurrency({ amount: props.geomean as number, code: "IDR" });
+
+   const disparity =
+      typeof props.disparitas_percent === "number"
+         ? props.disparitas_percent.toFixed(2)
+         : props.disparitas_percent;
    return (
       <View className="flex-row h-[80] px-[2] py-[3] border-b border-[#E5E5E5] overflow-hidden">
          <View className="flex-row items-center flex-1">
-            <Image src={dummyImage} className="w-[60] h-[60] rounded-full" />
+            <Image
+               src={props.avatarUrl}
+               className="w-[60] h-[60] rounded-full"
+            />
 
             <View>
-               <Text className="ml-3 font-RedHatBold">{props.province}</Text>
-               <Text className="ml-3 font-RedHatMedium">Rp.{props.price}</Text>
+               <Text className="ml-3 font-RedHatBold">
+                  {props.province_name}
+               </Text>
+               <Text className="ml-3 font-RedHatMedium">{idr}</Text>
             </View>
          </View>
 
@@ -45,15 +88,16 @@ export const MarketPriceItem = (props: MarketPriceItemProps) => {
             <Ionicons name="information-circle-outline" size={20} />
             <Text
                className={cn(
-                  "text-white text-xs px-2 py-1 rounded-lg bg-red-400 font-RedHatMedium",
+                  "text-white text-xs px-2 py-1 rounded-lg bg-green-400 font-RedHatMedium",
                   {
                      "bg-yellow-400":
-                        props.disparity > 0 && props.disparity <= 6,
+                        props.disparitas_percent > 0 &&
+                        props.disparitas_percent <= 5,
                   },
-                  { "bg-green-400": props.disparity > 6 }
+                  { "bg-red-400": props.disparitas_percent > 5 }
                )}
             >
-               {props.disparity}
+               {disparity}%
             </Text>
          </View>
       </View>

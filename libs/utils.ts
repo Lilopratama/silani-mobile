@@ -36,3 +36,11 @@ export const generateHumanDate = (): string => {
    // Format the date
    return `${location}, ${day} ${month} ${year}`;
 };
+
+export const setToMarketPriceFormattedDate = (date: Date): string => {
+   const day: string = String(date.getDate()).padStart(2, "0");
+   const month: string = String(date.getMonth() + 1).padStart(2, "0"); // Adjust month index (0-indexed)
+   const year: string = String(date.getFullYear());
+
+   return `${day}-${month}-${year}`;
+};

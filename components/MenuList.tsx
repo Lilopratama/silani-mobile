@@ -24,11 +24,16 @@ const Menu: { name: string; title: string; icon: ImageSourcePropType }[] = [
       title: "Cuaca",
       icon: require("@/assets/images/cuaca.png"),
    },
+   {
+      name: "(stack)/news",
+      title: "Berita",
+      icon: require("@/assets/images/news.png"),
+   },
 ];
 
 const MenuList = () => {
    return (
-      <View className="flex-row  px-3.5 gap-x-5">
+      <View className="flex-row justify-between ">
          {Menu.map((item, index) => (
             <MenuItem
                key={index + item.name}
@@ -56,7 +61,7 @@ export const MenuItem = (props: {
       >
          <View
             style={{ elevation: 1 }}
-            className="w-3/4 aspect-square rounded-xl bg-yellow-100 items-center justify-center"
+            className="w-3/4 aspect-square rounded-xl bg-white items-center justify-center"
          >
             <Image source={props.icon} className="w-[50] h-[50]" />
          </View>

@@ -1,8 +1,7 @@
+import { ForecastAssets } from "@/constants/ForecastAssets";
 import { generateHumanDate } from "@/libs/utils";
 import React from "react";
 import { Image, Text, View } from "react-native";
-
-const imageSource = require("@/assets/forecast/PartlyCloudy.png");
 
 const WeatherCard = () => {
    return (
@@ -24,7 +23,10 @@ const WeatherCard = () => {
             </View>
 
             {/* <View className="items-center"> */}
-            <Image source={imageSource} className="w-[100] h-[100] shadow-lg" />
+            <Image
+               source={ForecastAssets.cloudyColorful}
+               className="w-[100] h-[100] shadow-lg"
+            />
             {/* <Text className="text-xs font-RedHatBold">Berawan</Text>
             </View> */}
          </View>

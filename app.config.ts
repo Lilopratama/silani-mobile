@@ -4,6 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
    ...config,
    name: "Silani",
    slug: "silani",
+   owner: "manikandareas",
    version: process.env.APP_VERSION || "1.0.0",
    orientation: "portrait",
    icon: "./assets/images/icon.png",
@@ -36,5 +37,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
    plugins: ["expo-router", "expo-font", "expo-secure-store"],
    experiments: {
       typedRoutes: true,
+   },
+   extra: {
+      eas: {
+         projectId: "bfdeedfd-86cc-413b-a7b1-58c40731ac62",
+      },
    },
 });
